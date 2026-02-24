@@ -100,12 +100,12 @@ class TestRFQs:
     def test_create_rfq(self, client_session):
         payload = {
             "title": "TEST_Solar Energy Supply",
+            "description": "Solar energy supply for testing",
             "energy_type": "solar",
-            "quantity_mwh": 500,
-            "delivery_start": "2026-04-01",
-            "delivery_end": "2026-09-30",
-            "location": "Texas",
-            "requirements": "ISO certified"
+            "quantity_mw": 500,
+            "delivery_location": "Texas",
+            "start_date": "2026-04-01",
+            "end_date": "2026-09-30"
         }
         r = client_session.post(f"{BASE_URL}/api/rfqs", json=payload)
         assert r.status_code == 200
