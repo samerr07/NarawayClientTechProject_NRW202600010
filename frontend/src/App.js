@@ -13,6 +13,7 @@ import VendorProfile from './components/vendor/VendorProfile';
 import Marketplace from './components/vendor/Marketplace';
 import VendorRFQView from './components/vendor/VendorRFQView';
 import AdminDashboard from './components/admin/AdminDashboard';
+import ContractsPage from './components/shared/ContractsPage';
 
 const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
 export const API = `${BACKEND_URL}/api`;
