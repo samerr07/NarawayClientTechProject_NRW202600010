@@ -1,7 +1,7 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
-import { ArrowLeft, Save, CheckCircle, Upload, FileText, Leaf, Shield } from 'lucide-react';
+import { ArrowLeft, Save, CheckCircle, Upload, FileText, Leaf, Shield, Loader2, X } from 'lucide-react';
 import Navbar from '../Navbar';
 import { API } from '../../App';
 
