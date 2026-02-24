@@ -171,4 +171,6 @@ class TestNotifications:
     def test_notifications_endpoint(self, client_session):
         r = client_session.get(f"{BASE_URL}/api/notifications")
         assert r.status_code == 200
-        assert isinstance(r.json(), list)
+        data = r.json()
+        assert "notifications" in data
+        assert "unread_count" in data
