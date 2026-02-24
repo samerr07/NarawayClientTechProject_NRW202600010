@@ -127,10 +127,12 @@ function AppRouter() {
       <Route path="/client/dashboard" element={<ProtectedRoute role="client"><ClientDashboard /></ProtectedRoute>} />
       <Route path="/client/rfqs/new" element={<ProtectedRoute role="client"><CreateRFQ /></ProtectedRoute>} />
       <Route path="/client/rfqs/:rfq_id" element={<ProtectedRoute role="client"><RFQDetail /></ProtectedRoute>} />
+      <Route path="/client/contracts" element={<ProtectedRoute role="client"><ContractsPage /></ProtectedRoute>} />
       <Route path="/vendor/dashboard" element={<ProtectedRoute role="vendor"><VendorDashboard /></ProtectedRoute>} />
       <Route path="/vendor/profile" element={<ProtectedRoute role="vendor"><VendorProfile /></ProtectedRoute>} />
       <Route path="/vendor/marketplace" element={<ProtectedRoute role="vendor"><Marketplace /></ProtectedRoute>} />
       <Route path="/vendor/rfqs/:rfq_id" element={<ProtectedRoute role="vendor"><VendorRFQView /></ProtectedRoute>} />
+      <Route path="/vendor/contracts" element={<ProtectedRoute role="vendor"><ContractsPage /></ProtectedRoute>} />
       <Route path="/admin" element={<ProtectedRoute role="admin"><AdminDashboard /></ProtectedRoute>} />
       <Route path="*" element={<Navigate to="/" replace />} />
     </Routes>
