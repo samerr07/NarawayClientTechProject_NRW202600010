@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import axios from 'axios';
-import { ArrowLeft, Zap, Bot, TrendingUp, CheckCircle, XCircle, Star, AlertTriangle } from 'lucide-react';
+import { ArrowLeft, Zap, Bot, TrendingUp, CheckCircle, XCircle, Star, AlertTriangle, BarChart3 } from 'lucide-react';
 import Navbar from '../Navbar';
 import { API } from '../../App';
+import { BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer, CartesianGrid, ReferenceLine } from 'recharts';
 
 const STATUS_STYLES = {
   open: 'bg-emerald-500/10 text-emerald-400 border border-emerald-500/20',
