@@ -1,7 +1,8 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
-import { Zap, LayoutDashboard, FileText, Search, User, Settings, LogOut, ChevronDown } from 'lucide-react';
-import { useAuth } from '../App';
+import { Zap, LayoutDashboard, FileText, Search, User, Settings, LogOut, ChevronDown, Bell } from 'lucide-react';
+import { useAuth, API } from '../App';
+import axios from 'axios';
 
 const clientLinks = [
   { href: '/client/dashboard', icon: <LayoutDashboard size={16} strokeWidth={1.5} />, label: 'Dashboard' },
