@@ -131,6 +131,42 @@ export default function AdminDashboard() {
                   </ResponsiveContainer>
                 </div>
 
+                {/* Market Data */}
+                {marketData && (
+                  <div className="grid md:grid-cols-2 gap-4">
+                    <div className="bg-[#0F172A] border border-[#1E293B] rounded-sm p-5">
+                      <div className="flex items-center gap-2 mb-4">
+                        <Globe size={14} className="text-sky-400" />
+                        <h3 className="text-sm font-semibold text-white">Energy Price Index (6M)</h3>
+                      </div>
+                      <ResponsiveContainer width="100%" height={160}>
+                        <LineChart data={marketData.price_history} margin={{ top: 0, right: 0, left: -20, bottom: 0 }}>
+                          <CartesianGrid strokeDasharray="3 3" stroke="#1E293B" vertical={false} />
+                          <XAxis dataKey="month" tick={{ fill: '#64748B', fontSize: 11 }} axisLine={false} tickLine={false} />
+                          <YAxis tick={{ fill: '#64748B', fontSize: 11 }} axisLine={false} tickLine={false} domain={[2, 4]} />
+                          <Tooltip contentStyle={{ background: '#0F172A', border: '1px solid #1E293B', borderRadius: '2px', fontSize: 11 }} />
+                          <Line type="monotone" dataKey="solar" stroke="#F59E0B" strokeWidth={2} dot={false} name="Solar ₹/kWh" />
+                          <Line type="monotone" dataKey="wind" stroke="#0EA5E9" strokeWidth={2} dot={false} name="Wind ₹/kWh" />
+                        </LineChart>
+                      </ResponsiveContainer>
+                    </div>
+                    <div className="bg-[#0F172A] border border-emerald-500/20 rounded-sm p-5">
+                      <div className="flex items-center gap-2 mb-4">
+                        <Leaf size={14} className="text-emerald-400" />
+                        <h3 className="text-sm font-semibold text-white">Carbon Market (CCTS)</h3>
+                      </div>
+                      <ResponsiveContainer width="100%" height={160}>
+                        <LineChart data={marketData.price_history} margin={{ top: 0, right: 0, left: -10, bottom: 0 }}>
+                          <CartesianGrid strokeDasharray="3 3" stroke="#1E293B" vertical={false} />
+                          <XAxis dataKey="month" tick={{ fill: '#64748B', fontSize: 11 }} axisLine={false} tickLine={false} />
+                          <YAxis tick={{ fill: '#64748B', fontSize: 11 }} axisLine={false} tickLine={false} />
+                          <Tooltip contentStyle={{ background: '#0F172A', border: '1px solid #1E293B', borderRadius: '2px', fontSize: 11 }} formatter={(v) => [`₹${v}`, 'CCTS/tCO2e']} />
+                          <Line type="monotone" dataKey="carbon" stroke="#10B981" strokeWidth={2.5} dot={false} name="₹/tCO2e" />
+                        </LineChart>
+                      </ResponsiveContainer>
+                    </div>
+                  </div>
+                )}
                 {/* Quick breakdown */}
                 <div className="grid md:grid-cols-2 gap-4">
                   <div className="bg-[#0F172A] border border-[#1E293B] rounded-sm p-4">
