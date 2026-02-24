@@ -69,6 +69,39 @@ export default function VendorProfile() {
     finally { setSaving(false); }
   };
 
+  const handleFileUpload = async (e) => {
+    const file = e.target.files?.[0];
+    if (!file || !selectedDocType) return;
+    if (file.size > 10 * 1024 * 1024) {
+      alert('File too large. Max 10MB.');
+      return;
+    }
+    setUploadingDoc(selectedDocType);
+    try {
+      const reader = new FileReader();
+      reader.onload = async (ev) => {
+        const base64 = ev.target.result.split(',')[1];
+        await axios.post(`${API}/vendor/documents/upload`, {
+          doc_type: selectedDocType,
+          filename: file.name,
+          data_base64: base64,
+          size_bytes: file.size,
+        }, { withCredentials: true });
+        // Refresh docs list
+        const docsRes = await axios.get(`${API}/vendor/documents`, { withCredentials: true });
+        setUploadedDocs(docsRes.data);
+        setForm(f => ({ ...f, regulatory_docs: [...new Set([...f.regulatory_docs, selectedDocType])] }));
+        setSelectedDocType('');
+      };
+      reader.readAsDataURL(file);
+    } catch (err) {
+      alert(err.response?.data?.detail || 'Upload failed');
+    } finally {
+      setUploadingDoc(null);
+      if (fileInputRef.current) fileInputRef.current.value = '';
+    }
+  };
+
   const vBadge = {
     pending: 'bg-amber-500/10 text-amber-400 border border-amber-500/20',
     verified: 'bg-emerald-500/10 text-emerald-400 border border-emerald-500/20',
