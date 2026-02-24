@@ -27,25 +27,27 @@ export default function VendorProfile() {
   const [selectedDocType, setSelectedDocType] = useState('');
 
   useEffect(() => {
-    axios.get(`${API}/vendor/profile`, { withCredentials: true })
-      .then(r => {
-        setVerificationStatus(r.data.verification_status);
-        setForm({
-          company_name: r.data.company_name || '',
-          description: r.data.description || '',
-          energy_types: r.data.energy_types || [],
-          capacity_mw: r.data.capacity_mw || '',
-          certifications: r.data.certifications || [],
-          carbon_credits: r.data.carbon_credits || '',
-          contact_email: r.data.contact_email || '',
-          contact_phone: r.data.contact_phone || '',
-          website: r.data.website || '',
-          location: r.data.location || '',
-          regulatory_docs: r.data.regulatory_docs || [],
-        });
-      })
-      .catch(console.error)
-      .finally(() => setLoading(false));
+    Promise.all([
+      axios.get(`${API}/vendor/profile`, { withCredentials: true }),
+      axios.get(`${API}/vendor/documents`, { withCredentials: true }),
+    ]).then(([profileRes, docsRes]) => {
+      const r = profileRes.data;
+      setVerificationStatus(r.verification_status);
+      setForm({
+        company_name: r.company_name || '',
+        description: r.description || '',
+        energy_types: r.energy_types || [],
+        capacity_mw: r.capacity_mw || '',
+        certifications: r.certifications || [],
+        carbon_credits: r.carbon_credits || '',
+        contact_email: r.contact_email || '',
+        contact_phone: r.contact_phone || '',
+        website: r.website || '',
+        location: r.location || '',
+        regulatory_docs: r.regulatory_docs || [],
+      });
+      setUploadedDocs(docsRes.data || []);
+    }).catch(console.error).finally(() => setLoading(false));
   }, []);
 
   const upd = (k, v) => setForm(f => ({ ...f, [k]: v }));
